@@ -76,7 +76,13 @@ Forecast.prototype.getAtTime = function getAtTime (latitude, longitude, time, op
     if (err) {
       callback(err);
     } else {
-      data = JSON.parse(data);
+      try {
+        data = JSON.parse(data);
+      } catch(e) {
+        console.log("Error parsing forecast.io response:");
+        console.log(data);
+        data = {};
+      }
       callback(null, res, data);
     }
   });
